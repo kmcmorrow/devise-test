@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /messages
   # GET /messages.json
@@ -69,6 +70,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params[:message]
+      params.require(:message).permit(:text)
     end
 end
